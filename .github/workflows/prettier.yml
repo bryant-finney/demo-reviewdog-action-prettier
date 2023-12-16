@@ -1,0 +1,34 @@
+name: 🌈 Prettier
+
+on:
+  pull_request:
+    paths: ['**/*.yml', "**/*.yaml", "**/*.md", "**/*.json"]
+
+jobs:
+  broken:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EPMatt/reviewdog-action-prettier@v1
+        with:
+          fail_on_error: true
+          level: warning
+          reporter: github-pr-review
+          tool_name: prettier [doesn't work]
+
+  fixed:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bryant-finney/reviewdog-action-prettier@v1
+        with:
+          fail_on_error: true
+          level: warning
+          reporter: github-pr-review
+          tool_name: prettier [works]
